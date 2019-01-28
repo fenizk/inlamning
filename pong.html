@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8" />
+    <title>Pong</title>
+  </head>
+  <body>
+    <script src="https://koda.nu/simple.js">
+    let player1 = {x: 10, y: 200, color: "black"};
+    let player2 = {x: totalWidth-20, y: 200, color: "black"};
+    let players = [ player1, player2 ];
+    let ballSpeed = 5;
+
+
+    let ball = {x: totalWidth/2-5,
+                y: totalHeight/2-5,
+                xSpeed: 0,
+                ySpeed: 0};
+
+    while ( Math.abs(ball.xSpeed) < 2 ) {
+        let startAngle = 2 * Math.random() * Math.PI; // mellan 0 och två pi
+        ball.xSpeed = ballSpeed * Math.cos(startAngle),
+        ball.ySpeed = ballSpeed * Math.sin(startAngle);
+      }
+
+      function update()
+      {
+        fill("green");/*
+
+        */
+        for (let i=0; i < players.length; i++) {
+          rectangle(players[i].x, players[i].y, 10, 80, players[i].color);
+        }
+
+        circle(ball.x, ball.y, 10, "red");
+
+        if (ball.y > totalHeight-10)
+        {
+          ball.ySpeed = -ball.ySpeed
+        }
+
+         if (ball.y < 10)
+        {
+          ball.ySpeed = -ball.ySpeed
+        }
+
+        if (ball.x > totalWidth-30 &&
+            ball.y > player2.y &&
+            ball.y < player2.y+80)
+        {
+          ball.xSpeed = -ball.xSpeed;
+        }
+        else if (ball.x > totalWidth-30)
+        {
+          ball.x = totalWidth/2-5
+        }
+
+        if (ball.x < 20 &&
+            ball.y > player1.y &&
+            ball.y < player1.y+80)
+        {
+          ball.xSpeed = -ball.xSpeed;
+        }
+        else if (ball.x < 20)
+        {
+          ball.x = totalWidth/2-5
+        }
+      
+      
+        if (keyboard.w && player1.y > 5) { 
+          player1.y -= 5; 
+        }
+        if (keyboard.s) { player1.y += 5; }
+        
+        if (keyboard.up) { player2.y -= 5; }
+        if (keyboard.down) { player2.y += 5; }
+
+        ball.x += ball.xSpeed;
+        ball.y += ball.ySpeed;
+
+
+
+      }
+
+
+    </script>
+  </body>
+</html>
